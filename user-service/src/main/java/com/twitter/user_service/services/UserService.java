@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 
 public class UserService {
@@ -20,6 +22,11 @@ public class UserService {
 
     public UserDTO getUserById(long id) {
         UserEntity userEntity = userRepository.getById(id);
+        return modelMapper.map(userEntity, UserDTO.class);
+    }
+
+    public UserDTO createUser(UserDTO userDTO) {
+        UserEntity userEntity = userRepository.save(modelMapper.map(userDTO, UserEntity.class));
         return modelMapper.map(userEntity, UserDTO.class);
     }
 
